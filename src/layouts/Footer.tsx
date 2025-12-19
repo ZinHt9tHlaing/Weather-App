@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const Footer = () => {
   const date = new Date();
@@ -14,7 +14,7 @@ const Footer = () => {
         <Link
           to="/"
           onClick={scrollToTop}
-          className="font-semibold underline duration-300 hover:text-gray-600 active:scale-90"
+          className="font-semibold text-yellow-500 underline duration-200 hover:text-yellow-600 active:scale-90"
         >
           ZHH
         </Link>

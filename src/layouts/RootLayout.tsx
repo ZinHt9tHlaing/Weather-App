@@ -1,10 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import Footer from "./Footer";
+import { Header } from "./Header";
 
 const RootLayout = () => {
   return (
     <div className="from-background to-muted bg-linear-to-br">
-      header
+      <Header />
       <main className="container mx-auto min-h-screen px-4 py-8">
         <Outlet />
       </main>
