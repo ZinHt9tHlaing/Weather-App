@@ -1,4 +1,10 @@
-# React + TypeScript + Vite
+# Weather App with React, Typescript, Tailwind, Shadcn UI, Tanstack Query and Recharts 🔥🔥
+
+### Make sure to create a `.env` file with following variables -
+
+```
+VITE_OPENWEATHER_API_KEY=
+```
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
