@@ -1,10 +1,12 @@
-import { API_CONFIG, geoApi, weatherApi } from "./config";
+import { API_CONFIG } from "./config";
 import type {
-  Coordinates,
+  WeatherData,
   ForecastData,
   GeocodingResponse,
-  WeatherData,
+  Coordinates,
 } from "./types";
+
+/* ------------------------- helpers ------------------------- */
 
 const createUrl = (
   endpoint: string,
@@ -21,16 +23,18 @@ const createUrl = (
 };
 
 const fetchData = async <T>(url: string): Promise<T> => {
-  const response = await weatherApi.get<T>(url);
+  const response = await fetch(url);
 
-  if (response.status !== 200) {
+  if (!response.ok) {
     throw new Error(`Weather API Error: ${response.statusText}`);
   }
 
-  return response.data;
+  return response.json();
 };
 
-export const getCurrentWeather = async ({
+/* ------------------------- API functions ------------------------- */
+
+export const getCurrentWeather = ({
   lat,
   lon,
 }: Coordinates): Promise<WeatherData> => {
@@ -43,7 +47,7 @@ export const getCurrentWeather = async ({
   return fetchData<WeatherData>(url);
 };
 
-export const getForecast = async ({
+export const getForecast = ({
   lat,
   lon,
 }: Coordinates): Promise<ForecastData> => {
@@ -56,11 +60,11 @@ export const getForecast = async ({
   return fetchData<ForecastData>(url);
 };
 
-export const reverseGeocode = async ({
+export const reverseGeocode = ({
   lat,
   lon,
 }: Coordinates): Promise<GeocodingResponse[]> => {
-  const url = createUrl(`${geoApi}/reverse`, {
+  const url = createUrl(`${API_CONFIG.GEO}/reverse`, {
     lat,
     lon,
     limit: 1,
@@ -69,10 +73,10 @@ export const reverseGeocode = async ({
   return fetchData<GeocodingResponse[]>(url);
 };
 
-export const searchLocations = async (
+export const searchLocations = (
   query: string,
 ): Promise<GeocodingResponse[]> => {
-  const url = createUrl(`${geoApi}/direct`, {
+  const url = createUrl(`${API_CONFIG.GEO}/direct`, {
     q: query,
     limit: 5,
   });
